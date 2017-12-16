@@ -52,8 +52,34 @@ public:
             }
         }
     }*/
-    void rotate_left();
-    void rotate_right();
+    Mino(){
+        for (int i=0; i<4; ++i){
+            for (int j=0; j<4; ++j)
+                space[i][j]=false;
+        }
+    }
+    void rotate_left(){//first ignore edge cases
+        Mino M;
+        for (int i=0; i<4; ++i){
+            for (int j=0; j<4; ++j)
+                M[i][j]=space[3-j][i];
+                }
+        for (int i=0; i<4; ++i){
+            for (int j=0; j<4; ++j)
+                space[i][j]=M[i][j];
+                }
+    }
+    void rotate_right(){
+        Mino M;
+        for (int i=0; i<4; ++i){
+            for (int j=0; j<4; ++j)
+                M[i][j]=space[j][3-i];
+        }
+        for (int i=0; i<4; ++i){
+            for (int j=0; j<4; ++j)
+                space[i][j]=M[i][j];
+        }
+    }
 
 };
 
@@ -61,53 +87,72 @@ class Mino_I: public Mino{
 public:
     Mino_I(){
         for (int i=0; i<4; ++i){
-            space[i][3].fill();
+            space[i][2].fill();
         }
     }
-    void rotate_left();
-    void rotate_right();
 };
 
-class Mino_S{
+class Mino_S: public Mino{ //not optimal for rotations
 public:
-    Mino_S();
-    void rotate_left();
-    void rotate_right();
+    Mino_S(){
+        space[0][1].fill();
+        space[1][1].fill();
+        space[1][2].fill();
+        space[2][2].fill();
+    }
 };
 
-class Mino_L{
+class Mino_L: public Mino{//not optimal for rotations
 public:
-    Mino_L();
-    void rotate_left();
-    void rotate_right();
+    Mino_L(){
+        space[0][1].fill();
+        space[1][1].fill();
+        space[2][1].fill();
+        space[2][2].fill();
+    }
 };
 
-class Mino_T{
+class Mino_T: public Mino{ //not optimal for rotations
 public:
-    Mino_T();
-    void rotate_left();
-    void rotate_right();
+    Mino_T(){
+        space[0][1].fill();
+        space[1][1].fill();
+        space[2][1].fill();
+        space[1][2].fill();
+    }
 };
 
-class Mino_O{
+class Mino_O: public Mino{
 public:
-    Mino_O();
-    void rotate_left();
-    void rotate_right();
+    Mino_O(){
+        space[1][1].fill();
+        space[2][1].fill();
+        space[1][2].fill();
+        space[2][2].fill();
+    }
+
 };
 
-class Mino_J{
+class Mino_J: public Mino{ //not optimal for rotations
 public:
-    Mino_J();
-    void rotate_left();
-    void rotate_right();
+    Mino_J(){
+        space[0][1].fill();
+        space[0][1].fill();
+        space[0][1].fill();
+        space[0][1].fill();
+    }
+
 };
 
-class Mino_Z{
+class Mino_Z: public Mino{ //not optimal for rotations
 public:
-    Mino_Z();
-    void rotate_left();
-    void rotate_right();
+    Mino_Z(){
+        space[1][1].fill();
+        space[2][1].fill();
+        space[0][2].fill();
+        space[1][2].fill();
+    }
+
 };
 
 class Grid{
