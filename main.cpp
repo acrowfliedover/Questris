@@ -6,6 +6,9 @@
 
 int main(int argc, char *argv[])
 {
+    Grid G;
+    Mino_I I;
+    G.move_left(I);
     QApplication a(argc, argv);
     blocks w;
     w.show();

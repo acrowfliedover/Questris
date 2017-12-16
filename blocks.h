@@ -14,32 +14,31 @@ public:
     blocks(QWidget *parent = 0);
     ~blocks();
 };
-class Cell{ //some graphic unit
+class Cell{
 private:
     bool full;
-    friend class Line; //I may add colors to the cells, which is the point of the cell
-    friend class Grid;
-    friend class Mino;
+public:
+    Cell(){full=false;}
+    void fill(){full=true;}
+    void clear(){full=false;}
+
+    friend class Line;
 };
+
 
 class Line{
 private:
     Cell cells[10];
 
 public:
-    void clear();
+    bool check_full(){
+        for (int i=0; i<10;++i){
+            if (!(cells[i].full))
+                return false;
+        }
+        return true;
+    }
     friend class Grid;
-};
-
-class Grid{
-private:
-    Line lines[20];
-public:
-    void line_clear(int);
-    void move_left(Mino);
-    void move_right(Mino);
-    void move_down(Mino);
-
 };
 
 class Mino{
@@ -53,11 +52,15 @@ public:
 
 };
 
-class Mino_I{
+class Mino_I: public Mino{
 private:
     Cell I_space[4][4];
 public:
-    Mino_I();
+    Mino_I(){
+        for (int i=0; i<4; ++i){
+            I_space[i][3].fill();
+        }
+    }
     void rotate_left();
     void rotate_right();
 };
@@ -114,8 +117,17 @@ public:
     Mino_Z();
     void rotate_left();
     void rotate_right();
-}
+};
 
+class Grid{
+private:
+    Line lines[20];
+public:
+    void line_clear(int);
+    void move_left(Mino M);
+    void move_right(Mino M);
+    void move_down(Mino M);
 
+};
 
 #endif // BLOCKS_H
