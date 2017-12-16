@@ -19,6 +19,12 @@ private:
     bool full;
 public:
     Cell(){full=false;}
+    Cell(Cell &c){
+        full=c.full;
+    }
+    Cell(bool b){
+        full=b;
+    }//some constructors may come in handy
     void fill(){full=true;}
     void clear(){full=false;}
 
@@ -55,29 +61,29 @@ public:
     Mino(){
         for (int i=0; i<4; ++i){
             for (int j=0; j<4; ++j)
-                space[i][j]=false;
+                space[i][j]=Cell(false);
         }
     }
     void rotate_left(){//first ignore edge cases
         Mino M;
         for (int i=0; i<4; ++i){
             for (int j=0; j<4; ++j)
-                M[i][j]=space[3-j][i];
+                M.space[i][j]=space[3-j][i];
                 }
         for (int i=0; i<4; ++i){
             for (int j=0; j<4; ++j)
-                space[i][j]=M[i][j];
+                space[i][j]=M.space[i][j];
                 }
     }
     void rotate_right(){
         Mino M;
         for (int i=0; i<4; ++i){
             for (int j=0; j<4; ++j)
-                M[i][j]=space[j][3-i];
+                M.space[i][j]=space[j][3-i];
         }
         for (int i=0; i<4; ++i){
             for (int j=0; j<4; ++j)
-                space[i][j]=M[i][j];
+                space[i][j]=M.space[i][j];
         }
     }
 
@@ -160,7 +166,7 @@ private:
     Line lines[20];
 public:
     void line_clear(int);
-    virtual void move_left(Mino M);
+    void move_left(Mino M);
     void move_right(Mino M);
     void move_down(Mino M);
 
